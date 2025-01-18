@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/styles.css" />	
+    <title>Document</title>
+</head>
+<body>
+	<div class="flex justify-center mt-[calc(100vh-100vh+8rem)]">
+		<div class="max-w-md w-full bg-neutral py-10 px-8 rounded-xl">
+			<h1 class="text-center text-xl text-white">Sol'n Teacher Portal </h1>
+			<div class="divider before:bg-white after:bg-white my-[5px]"></div>
+
+			<form method="POST" action="/login">
+				<div class="w-full">
+					<div class="label">
+						<span class="label-text text-white">Username</span>
+					</div>
+					<input type="text" name="username" autocomplete="off" required placeholder="Type here" class="input input-bordered w-full"/>
+					<div class="label">
+						<span class="label-text text-white">Password</span>
+					</div>
+					<input type="password" name="password" autocomplete="off" required class="input input-bordered w-full"/>
+				</div>
+			
+			<button type="submit" class="btn btn-secondary w-full text-white my-[10px]">Login <i class="fa-solid fa-arrow-right"></i></button>
+			<div class="divider text-white before:bg-white after:bg-white my-[5px]">OR</div>
+			<a href="/register" class="btn btn-outline w-full text-white mt-[10px] ">Register an Account </a>
+
+			</form>
+		</div>
+	</div>
+</body>
+</html>
