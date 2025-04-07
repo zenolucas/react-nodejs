@@ -1,34 +1,36 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const session = require('express-session');  // Import the session middleware
 const path = require('path');
+const bodyParser = require('body-parser');
+const routes = require('./routes');  // Import routes from the centralized router
 require('dotenv').config();
-const db = require('./db'); // Import your DB connection
 
 const app = express();
 
+// Middleware to parse form data
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
 
-// Serve static files 
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Set the views directory (default is './views')
+// Set the views directory (where EJS files are located)
 app.set('views', path.join(__dirname, 'views'));
 
-// Use centralized router
-const routes = require('./routes');
+// Serve static files (CSS, images, etc.)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Session middleware configuration
+app.use(session({
+  secret: 'your_secret_key',  // Change this to a secret key
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }  // Set to true if you're using https
+}));
+
+// Use the centralized router
 app.use(routes);
 
-// Verify database connection
-db.execute('SELECT 1')
-  .then(() => {
-    console.log('Successfully connected to the database!');
-    app.listen(process.env.PORT, () => {
-      console.log(`Server is now running on port ${process.env.PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error('Error connecting to the database:', err.stack);
-  });
+// Start the server
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
+});
