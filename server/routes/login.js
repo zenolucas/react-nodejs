@@ -26,7 +26,7 @@ router.post('/login', async (req, res) => {
         req.session.user = { id: user.user_id, username: user.username };
 
         // Redirect to dashboard if login is successful
-        res.redirect('/dashboard');
+        res.redirect('/');
 
     } catch (err) {
         console.error(err);

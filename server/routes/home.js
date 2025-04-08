@@ -1,13 +1,21 @@
 const express = require('express');
 const router = express.Router();
 
-// Redirect root ("/") to "/login"
 router.get('/', (req, res) => {
-  res.redirect('/login');  // Redirects to the login page
+  if (req.session && req.session.user) {
+    // User is logged in, redirect to home/dashboard
+    return res.redirect('/home');
+  } else {
+    // Not logged in, redirect to login
+    return res.redirect('/login');
+  }
 });
 
-// Add other routes if necessary
-// For example, the login page route
+
+router.get('/home', (req, res) => {
+  res.render('home'); // Render the login.ejs page
+});
+
 router.get('/login', (req, res) => {
   res.render('login'); // Render the login.ejs page
 });
